@@ -593,7 +593,7 @@ def update_tool_checklist(selected_tech_layer):
 def summary_table(start_date, end_date, rows, selected_tech_layer, selected_chart_mpx, selected_chamber, selected_rows, data):
     # Filter the data based on selected rows
     if selected_rows:
-        selected_lots = [data[i]['LOT'] for i in selected_rows]
+        selected_lots = [data[i]['LOT'] for i in selected_rows if i < len(data)]
         filtered_data = df.query(
             "DATE >= @start_date and DATE <= @end_date and TECH_LAYER == @selected_tech_layer and MP == @selected_chart_mpx and LOT in @selected_lots"
         )
@@ -709,7 +709,7 @@ def generate_bx_chamber(start_date, end_date, chamber, limits, selected_tech_lay
     State("lot_list_table", "data"))
 def generate_bx_chamber(start_date, end_date, chamber, limits, selected_tech_layer, selected_chart_mpx, selected_rows, data):
     if selected_rows:
-        selected_lots = [data[i]['LOT'] for i in selected_rows]
+        selected_lots = [data[i]['LOT'] for i in selected_rows if i < len(data)]
         filtered_data = df.query(
             "DATE >= @start_date and DATE <= @end_date and TECH_LAYER == @selected_tech_layer and MP == @selected_chart_mpx and LOT in @selected_lots")
     else:
@@ -869,7 +869,7 @@ def update_line_chart(tool, start_date, end_date, chamber, limits, selected_tech
     State("lot_list_table", "data"))
 def update_line_chart(tool, start_date, end_date, chamber, limits, selected_tech_layer, selected_chart_mpx, selected_rows, data):    # callback function arg 'tool' refers to the component property of the input or "value" above
     if selected_rows:
-        selected_lots = [data[i]['LOT'] for i in selected_rows]
+        selected_lots = [data[i]['LOT'] for i in selected_rows if i < len(data)]
         filtered_data = df.query(
             "DATE >= @start_date and DATE <= @end_date and TECH_LAYER == @selected_tech_layer and MP == @selected_chart_mpx and LOT in @selected_lots")
     else:
@@ -916,7 +916,7 @@ def update_line_chart(tool, start_date, end_date, chamber, limits, selected_tech
     State("lot_list_table", "data"))
 def update_line_chart(tool, start_date, end_date, chamber, limits, selected_tech_layer, selected_chart_mpx, selected_rows, data):    # callback function arg 'tool' refers to the component property of the input or "value" above
     if selected_rows:
-        selected_lots = [data[i]['LOT'] for i in selected_rows]
+        selected_lots = [data[i]['LOT'] for i in selected_rows if i < len(data)]
         filtered_data = df.query(
             "DATE >= @start_date and DATE <= @end_date and TECH_LAYER == @selected_tech_layer and MP == @selected_chart_mpx and LOT in @selected_lots")
     else:
