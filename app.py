@@ -52,11 +52,15 @@ INNER JOIN P_SPC_SESSION a2 ON a2.spcs_id = a0.spcs_id AND a2.data_collection_ti
 INNER JOIN P_SPC_MEASUREMENT_SET a3 ON a3.spcs_id = a2.spcs_id
 LEFT JOIN P_SPC_MEASUREMENT a4 ON a4.spcs_id = a3.spcs_id AND a4.measurement_set_name = a3.measurement_set_name
 WHERE
-a1.data_collection_time between '2024-07-29 00:00:00.0' and '2024-08-21 23:59:59.999'
+a1.data_collection_time >= TRUNC(SYSDATE) -  14
 AND      (a3.measurement_set_name = 'CD.DCCD_MEASUREMENTS.5051' or a3.measurement_set_name = 'CD.DCCD_MEASUREMENTS.25' or a3.measurement_set_name = 'CD.DCCD_MEASUREMENTS.26' or a3.measurement_set_name = 'CD.DCCD_MEASUREMENTS.17' or a3.measurement_set_name = 'CD.DCCD_MEASUREMENTS.43')
 AND      (a0.lot LIKE  'W%')
 '''
 
+# change to specific time frame
+'''
+a1.data_collection_time between '2024-07-29 00:00:00.0' and '2024-08-21 23:59:59.999'
+'''
 # removed valid flags to make sure to get SIF data
 '''
 AND      a3.standard_flag = 'Y'
@@ -127,7 +131,7 @@ OR wch.chamber LIKE '%DEV%')
  AND      (leh.entity LIKE 'SDJ591' or leh.entity LIKE 'SCJ591' or leh.entity LIKE 'SBH202' or leh.entity LIKE 'SDJ111' or leh.entity LIKE 'STA215' or leh.entity LIKE 'STA216' or leh.entity LIKE 'STG111' or leh.entity LIKE 'STG113')
  AND      (leh.lot LIKE  'W%') 
  AND      lwr2.recipe Like '%' 
- AND      wch.start_time between '2024-07-29 00:00:00.0' and '2024-08-21 23:59:59.999'
+ AND      wch.start_time >= TRUNC(SYSDATE) -  14
 '''
 
 # >= TRUNC(SYSDATE) -  50
